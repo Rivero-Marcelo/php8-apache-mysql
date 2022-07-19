@@ -1,0 +1,5 @@
+mysql
+src/vendor
+src/composer.lock
+src/.env
+.vscode

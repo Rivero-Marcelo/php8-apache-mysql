@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  php:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: php-apache
+    restart: unless-stopped 
+    ports:
+      - 8000:80
+    volumes:
+      - ./src:/var/www/html
+      - ./src/config/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./src/config/xdebug/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+
+  
+  mysql:
+    image: mysql:latest
+    tty: true 
+    ports:
+      - "3306:3306"
+    restart: unless-stopped 
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD_ROOT}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

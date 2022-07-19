@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "src\\Controller\\": "Controller/",
+            "Dotenv\\": "src/"
+                        
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.4"
+    }
+}
